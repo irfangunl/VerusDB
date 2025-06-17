@@ -1,7 +1,7 @@
 # VerusDB - Secure Embedded Database for Node.js
 
 <div align="center">
-  <img src="verusdb.png" alt="VerusDB Logo" width="200" height="200">
+  <img src="verusdb.png" alt="VerusDB Logo" width="" height="">
 </div>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
