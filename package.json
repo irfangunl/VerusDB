@@ -1,0 +1,64 @@
+{
+  "name": "verusdb",
+  "version": "1.0.0",
+  "description": "Encrypted Node.js Embedded Database with Visual Admin Panel",
+  "main": "index.js",  "bin": {
+    "verusdb": "./src/cli/index.js"
+  },  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build:admin": "cd admin-panel && npm install && npm run build",
+    "dev:admin": "cd admin-panel && npm start",
+    "serve": "node src/cli/index.js serve",
+    "docker:build": "docker build -t verusdb .",
+    "docker:run": "docker run -p 4321:4321 -v verusdb_data:/app/data verusdb",
+    "postinstall": "echo 'VerusDB installed successfully! Try: npx verusdb --help'",
+    "example": "node examples/todo-app/index.js"
+  },"keywords": [
+    "database",
+    "embedded",
+    "encrypted",
+    "nosql",
+    "nodejs",
+    "admin-panel",
+    "encryption",
+    "json",
+    "sqlite-alternative",
+    "mongodb-like",
+    "single-file",
+    "portable"
+  ],
+  "author": "Irfan Gunel <irfangunel4@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irfangunl/VerusDB.git"
+  },
+  "homepage": "https://github.com/irfangunl/VerusDB#readme",
+  "bugs": {
+    "url": "https://github.com/irfangunl/VerusDB/issues"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^7.2.0",
+    "inquirer": "^8.2.6",
+    "morgan": "^1.10.0",
+    "validator": "^13.15.15",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

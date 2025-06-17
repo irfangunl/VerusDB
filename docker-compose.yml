@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  verusdb:
+    build: .
+    ports:
+      - "4321:4321"
+    environment:
+      - NODE_ENV=production
+      - VERUSDB_ENCRYPTION_KEY=${VERUSDB_ENCRYPTION_KEY:-change-this-key}
+      - VERUSDB_LOG_LEVEL=${VERUSDB_LOG_LEVEL:-info}
+      - VERUSDB_ADMIN_PORT=4321
+      - VERUSDB_ADMIN_HOST=0.0.0.0
+      - VERUSDB_ENABLE_METRICS=true
+      - VERUSDB_ENABLE_HEALTH_CHECK=true
+    volumes:
+      - verusdb_data:/app/data
+      - verusdb_logs:/app/logs
+      - verusdb_backups:/app/backups
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "const http = require('http'); http.get('http://localhost:4321/health', (res) => { if (res.statusCode === 200) process.exit(0); else process.exit(1); }).on('error', () => process.exit(1));"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - verusdb_network
+
+  # Optional: Nginx reverse proxy for HTTPS
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - verusdb
+    restart: unless-stopped
+    networks:
+      - verusdb_network
+    profiles:
+      - with-proxy
+
+volumes:
+  verusdb_data:
+    driver: local
+  verusdb_logs:
+    driver: local
+  verusdb_backups:
+    driver: local
+
+networks:
+  verusdb_network:
+    driver: bridge

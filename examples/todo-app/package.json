@@ -1,0 +1,24 @@
+{
+  "name": "verusdb-todo-example",
+  "version": "1.0.0",
+  "description": "Todo application example using VerusDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "verusdb": "file:../../"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "verusdb",
+    "todo",
+    "example",
+    "database"
+  ],
+  "author": "VerusDB Team",
+  "license": "MIT"
+}
